@@ -1,0 +1,10 @@
+**/target/
+
+# IntelliJ project files
+.idea
+*.iml
+**/out
+html
+*.ipr
+*.iws
+
