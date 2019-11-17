@@ -1,0 +1,36 @@
+### 问题本质
+JVM的内存由于某些原因用完了，GC无法进行
+
+GC无法进行的原因是，目前堆栈中的对象都是不可回收的（通过一系列引用指向了 GC ROOTS）
+
+GC ROOTS: 进行GC时，从某些指定的对象开始，进行引用计数，没有被引用的对象可以进行回收
+    - thread 对象
+### 最重要的一点：保存现场
+获取 heap dump文件 ，进行分析
+
+hprof文件
+
+### 经验之谈：可能的原因
+1. 代码问题
+
+2. 配置问题
+
+3. 内存确实不够 
+
+### 举几个例子
+
+```
+class OOM{
+    public void main(String[] args){
+        Map<Integer, Object> hashMap = new HashMap<String, Object>
+        for(int i= 0; i< 10; i++){
+            hashMap.put(i, new byte[1024*1024])
+        }
+    }
+}
+
+编译 
+javac OOM.java
+指定最大堆运行测试程序 
+java -Xmx10m OOM
+```
