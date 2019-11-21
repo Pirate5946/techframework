@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
  * <p>Description:  使三个线程 A,B,C 依次执行  </p>
  * 这是一个典型的执行屏障的问题，可以通过构造屏障来实现。
  *
- * 如下图，我们需要构造 22 道屏障，second 线程等待 first 屏障，third 线程等待 second 屏障
+ * 如下图，我们需要构造 2 道屏障，second 线程等待 first 屏障，third 线程等待 second 屏障
  *
  * 作者：pulsaryu
  * 链接：<link>https://leetcode-cn.com/problems/print-in-order/solution/gou-zao-zhi-xing-ping-zhang-shi-xian-by-pulsaryu/</link>
@@ -169,6 +169,7 @@ public class SortedThread {
 	     //创建一个线程池，把这个三个线程装进这个线程池里
 	     //线程池的实现是用的队列这个数据结构，因此先进先出，且每次只能弹出一个线程
 	     //其实就是利用线程池完成每次工作的线程只有一个，且是队头线程
+//	     ExecutorService executor = Executors.newSingleThreadExecutor();
 	     ExecutorService executor = Executors.newSingleThreadExecutor();
 	     executor.submit(a);
 	     executor.submit(b);
