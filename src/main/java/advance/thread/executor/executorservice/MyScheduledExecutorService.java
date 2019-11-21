@@ -9,13 +9,13 @@ import static java.util.concurrent.TimeUnit.SECONDS;
  * create at : 2019-11-21 17:20
  * @description: 测试定时线程
  **/
-public class ScheduledExecutorServiceTest {
+public class MyScheduledExecutorService {
 
     public static void main(String[] args) {
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(2, 5, 30, SECONDS, new LinkedBlockingQueue<Runnable>(), Executors.defaultThreadFactory());
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-//        beepForAnHour(scheduler);
-        beepDelay(scheduler, 5, SECONDS);
+        beepForAnHour(scheduler);
+//        beepDelay(scheduler, 5, SECONDS);
     }
 
     public static void beepDelay(ScheduledExecutorService scheduler, long delay, TimeUnit timeUnit) {
@@ -25,6 +25,7 @@ public class ScheduledExecutorServiceTest {
                 System.out.println("beep");
             }
         };
+
         scheduler.schedule(beeper, delay, timeUnit);
         scheduler.shutdown();
     }
@@ -36,7 +37,7 @@ public class ScheduledExecutorServiceTest {
                 System.out.println("beep");
             }
         };
-        final ScheduledFuture<?> beeperHandle = scheduler.scheduleAtFixedRate(beeper, 5, 10, SECONDS);
+        final ScheduledFuture<?> beeperHandle = scheduler.scheduleAtFixedRate(beeper, 1, 1, SECONDS);
         scheduler.schedule(new Runnable() {
             @Override
             public void run() {
