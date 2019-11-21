@@ -11,14 +11,22 @@ import static java.util.concurrent.TimeUnit.SECONDS;
  **/
 public class MyScheduledExecutorService {
 
+    /**
+     * 线程池接口： ExecutorService、 ScheduledExecutorService
+     * 线程池实现类： ThreadPoolExecutor 、 ScheduledThreadPoolExecutor
+     * @param args
+     */
     public static void main(String[] args) {
-        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(2, 5, 30, SECONDS, new LinkedBlockingQueue<Runnable>(), Executors.defaultThreadFactory());
+//        ThreadFactory threadFactory = Executors.defaultThreadFactory();
+//        ThreadPoolExecutor threadPoolExecutor =
+//                new ThreadPoolExecutor(2, 5, 30, SECONDS,
+//                        new LinkedBlockingQueue<Runnable>(), threadFactory);
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
         beepForAnHour(scheduler);
 //        beepDelay(scheduler, 5, SECONDS);
     }
 
-    public static void beepDelay(ScheduledExecutorService scheduler, long delay, TimeUnit timeUnit) {
+    public  void beepDelay(ScheduledExecutorService scheduler, long delay, TimeUnit timeUnit) {
         Runnable beeper = new Runnable() {
             @Override
             public void run() {
@@ -30,11 +38,13 @@ public class MyScheduledExecutorService {
         scheduler.shutdown();
     }
 
-    public static void beepForAnHour(ScheduledExecutorService scheduler) {
+    public  static void beepForAnHour(ScheduledExecutorService scheduler) {
+        long startTiime = System.currentTimeMillis();
         final Runnable beeper = new Runnable() {
             @Override
             public void run() {
                 System.out.println("beep");
+                System.out.println("秒钟计时：" + (System.currentTimeMillis() - startTiime) / 1000);
             }
         };
         final ScheduledFuture<?> beeperHandle = scheduler.scheduleAtFixedRate(beeper, 1, 1, SECONDS);
@@ -43,6 +53,6 @@ public class MyScheduledExecutorService {
             public void run() {
                 beeperHandle.cancel(true);
             }
-        }, 10, SECONDS);
+        }, 100, SECONDS);
     }
 }
