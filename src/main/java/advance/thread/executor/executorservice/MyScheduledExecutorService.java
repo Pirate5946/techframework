@@ -39,12 +39,12 @@ public class MyScheduledExecutorService {
     }
 
     public  static void beepForAnHour(ScheduledExecutorService scheduler) {
-        long startTiime = System.currentTimeMillis();
+        long startTime = System.currentTimeMillis();
         final Runnable beeper = new Runnable() {
             @Override
             public void run() {
                 System.out.println("beep");
-                System.out.println("秒钟计时：" + (System.currentTimeMillis() - startTiime) / 1000);
+                System.out.println("秒钟计时：" + (System.currentTimeMillis() - startTime) / 1000);
             }
         };
         final ScheduledFuture<?> beeperHandle = scheduler.scheduleAtFixedRate(beeper, 1, 1, SECONDS);
@@ -52,6 +52,7 @@ public class MyScheduledExecutorService {
             @Override
             public void run() {
                 beeperHandle.cancel(true);
+                scheduler.shutdown();
             }
         }, 100, SECONDS);
     }
