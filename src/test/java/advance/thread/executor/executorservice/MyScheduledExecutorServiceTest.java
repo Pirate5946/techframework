@@ -6,7 +6,6 @@ import org.junit.After;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 /** 
 * MyScheduledExecutorService Tester. 
@@ -53,14 +52,14 @@ public void testBeepDelay() throws Exception {
 
 /** 
 * 
-* Method: beepForAnHour(ScheduledExecutorService scheduler) 
+* Method: beepForAWhile(ScheduledExecutorService scheduler)
 * 
 */ 
 @Test
 public void testBeepForAnHour() throws Exception {
     MyScheduledExecutorService myScheduledExecutorService = new MyScheduledExecutorService();
     ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-    myScheduledExecutorService.beepForAnHour(scheduler);
+    myScheduledExecutorService.beepForAWhile();
 } 
 
 
