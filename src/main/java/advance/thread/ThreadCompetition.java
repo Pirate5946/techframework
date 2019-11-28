@@ -17,15 +17,6 @@ public class ThreadCompetition {
         long start = System.currentTimeMillis();
         AtomicLong atomicLong = new AtomicLong(0);
 
-//      new Thread() {
-//          @Override
-//          public void run() {
-//              for (int i = 0; i < 5000000; i++) {
-//                  count++;
-//              }
-//              System.out.println("自定义线程:计算完成...，耗时" + (System.currentTimeMillis() - start));
-//          }
-//      }.start();
         ThreadFactory threadFactory = Executors.defaultThreadFactory();
         ExecutorService executorService = new ThreadPoolExecutor(1,
                 10,
@@ -63,4 +54,3 @@ public class ThreadCompetition {
 }
 
 
-//~ Formatted by Jindent --- http://www.jindent.com

@@ -1,5 +1,7 @@
 package base;
 
+import java.util.LinkedList;
+
 /**
  * @ClassName Test
  * @Descrption TODO
@@ -9,6 +11,7 @@ package base;
  **/
 public class Test {
     public static void main(String[] args) {
-        System.out.println(111);
+        String pnr = "RT HE0RQW";
+        System.out.println(pnr.indexOf("RT"));
     }
 }
