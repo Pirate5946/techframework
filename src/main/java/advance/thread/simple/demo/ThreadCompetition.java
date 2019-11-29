@@ -1,4 +1,4 @@
-package advance.thread;
+package advance.thread.simple.demo;
 
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;

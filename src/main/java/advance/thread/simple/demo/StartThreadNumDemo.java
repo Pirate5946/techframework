@@ -1,4 +1,4 @@
-package advance.thread;
+package advance.thread.simple.demo;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;
@@ -19,7 +19,7 @@ import java.lang.management.ThreadMXBean;
  * create at : 2019-11-27 17:04
  * @description: java程序启动至少会启动几个线程
  **/
-public class ThreadNumDemo {
+public class StartThreadNumDemo {
     public static void main(String[] args) {
         ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
         ThreadInfo[] threadInfos=threadMXBean.dumpAllThreads(false,false);

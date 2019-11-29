@@ -1,11 +1,6 @@
-package advance.thread;
+package advance.thread.simple.demo;
 
 import cn.hutool.core.util.StrUtil;
-
-import javax.sound.midi.Soundbank;
-import java.lang.management.ManagementFactory;
-import java.lang.management.ThreadInfo;
-import java.lang.management.ThreadMXBean;
 
 /**
  * @author : LIUTAO
