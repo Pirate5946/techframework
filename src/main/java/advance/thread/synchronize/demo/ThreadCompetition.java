@@ -1,4 +1,4 @@
-package advance.thread.simple.demo;
+package advance.thread.synchronize.demo;
 
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
@@ -10,12 +10,15 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public class ThreadCompetition {
 
-    // 使用两个线程，对于1个整形变量从各加五百万次。我们期望的结果是一千万，但结果是不是这样呢？
+    /**
+     * 使用两个线程，对于1个整形变量从各加五百万次。我们期望的结果是一千万，但结果是不是这样呢？
+     */
     static int count = 0;
+    static AtomicLong atomicLong = new AtomicLong(0);
+    static ThreadLocal<Integer> threadLocal = new ThreadLocal<>();
 
     public static void main(String[] args) throws InterruptedException {
         long start = System.currentTimeMillis();
-        AtomicLong atomicLong = new AtomicLong(0);
 
         ThreadFactory threadFactory = Executors.defaultThreadFactory();
         ExecutorService executorService = new ThreadPoolExecutor(1,
@@ -32,6 +35,7 @@ public class ThreadCompetition {
                 for (int i = 0; i < 5000000; i++) {
                     count++;
                     atomicLong.getAndIncrement();
+
                 }
 
 //                                       Thread.currentThread().setName("线程一号");
