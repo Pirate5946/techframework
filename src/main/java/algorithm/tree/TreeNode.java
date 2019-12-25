@@ -1,4 +1,4 @@
-package algorithm.newCoder.tree;
+package algorithm.tree;
 
 /**
  * @ClassName TreeNode

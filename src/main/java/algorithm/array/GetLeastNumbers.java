@@ -1,4 +1,4 @@
-package algorithm.newCoder.array;
+package algorithm.array;
 
 import java.util.ArrayList;
 import java.util.Collections;

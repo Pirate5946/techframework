@@ -1,4 +1,4 @@
-package algorithm.newCoder.array;
+package algorithm.array;
 
 /**
  * @ClassName NumberOf1Between1AndN

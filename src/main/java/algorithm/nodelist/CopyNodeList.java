@@ -1,4 +1,4 @@
-package algorithm.newCoder.nodelist;
+package algorithm.nodelist;
 
 import java.util.HashMap;
 

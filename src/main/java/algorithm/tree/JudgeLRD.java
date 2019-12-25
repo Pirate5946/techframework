@@ -1,4 +1,4 @@
-package algorithm.newCoder.tree;
+package algorithm.tree;
 
 /**
  * @ClassName JudgeLRD   <link> https://blog.csdn.net/u013132035/article/details/80607000 </link>

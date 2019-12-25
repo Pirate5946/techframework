@@ -1,4 +1,4 @@
-package algorithm.newCoder.array;
+package algorithm.array;
 
 /**
  * @ClassName GetNumberOfK
