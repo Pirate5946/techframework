@@ -1,5 +1,7 @@
 package base;
 
+import cn.hutool.cache.CacheUtil;
+
 import java.util.LinkedList;
 
 /**
@@ -13,5 +15,8 @@ public class Test {
     public static void main(String[] args) {
         String pnr = "RT HE0RQW";
         System.out.println(pnr.indexOf("RT"));
+
+//        CacheUtil
+
     }
 }

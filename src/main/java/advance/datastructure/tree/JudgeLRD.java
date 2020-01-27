@@ -1,8 +1,8 @@
 package advance.datastructure.tree;
 
 /**
- * @ClassName JudgeLRD   <link> https://blog.csdn.net/u013132035/article/details/80607000 </link>
- * @Descrption 输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。
+ *
+ * 输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。
  * // 二叉搜索树：空树或者二叉树的所有结点比它的左子结点大，比它的右子结点小
  * // 在后序遍历得到的序列中，最后一个数字是树的根结点的值。
  * // 数组中前面的数字可以分为两部分：
@@ -13,6 +13,8 @@ package advance.datastructure.tree;
  *             int root = sequence[sequence.length() - 1];
  *     }
  * }
+ *
+ * @ClassName JudgeLRD   <link> https://blog.csdn.net/u013132035/article/details/80607000 </link>
  * @Author lt
  * @Date 2019/5/26 19:04
  * @Version 1.0
