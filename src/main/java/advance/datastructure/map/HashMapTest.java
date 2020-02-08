@@ -19,6 +19,13 @@ public class HashMapTest {
         System.out.println(map.get(null));
         map.put(123, null);
         System.out.println(map.get(123));
+        System.out.println(map.toString());
+
+//        StringBuffer
+
+
+
+        Integer.parseInt("11");
     }
 
 }
