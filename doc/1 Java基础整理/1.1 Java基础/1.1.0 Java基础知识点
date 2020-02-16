@@ -85,3 +85,13 @@ Checked异常继承java.lang.Exception类。Unchecked异常继承自java.lang.Ru
 
 ### - 动态代理的两种方式，以及区别。
 ### - Java序列化的方式
+
+
+### transient
+将不需要序列化的属性前添加关键字transient，序列化对象的时候，这个属性就不会被序列化。
+
+transient 修饰的age字段，他的生命周期仅仅在内存中，不会被写到磁盘中。
+
+实现了Externalizable接口，哪一个属性被序列化使我们手动去指定的，即使是transient关键字修饰也不起作用
+
+静态变量是不会被序列化的,即使没有transient关键字修饰
