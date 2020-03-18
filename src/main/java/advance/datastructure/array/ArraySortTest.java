@@ -33,8 +33,8 @@ public class ArraySortTest {
 //                    return -1;
 //                }
 //                return 0;
-//                return o2.compareTo(o1);
-                return o1.compareTo(o2);
+                return o2.compareTo(o1);
+//                return o1.compareTo(o2);
             }
 
         });

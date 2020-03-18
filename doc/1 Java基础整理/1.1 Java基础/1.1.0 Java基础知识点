@@ -66,7 +66,12 @@ protected void finalize() throws Throwable { }
 
 
 ### 3、 列表中学生按照年龄排序
-   - 重写compareTo
+调用Collections.sort(),       
+底层调用 
+```
+Arrays.sort(a, (Comparator) c);￿ 
+```
+重写比较器的compareTo
 
 ### 4、 哪些场景下，子类需要重写 equals 方法和 hashCode 方法？
    
