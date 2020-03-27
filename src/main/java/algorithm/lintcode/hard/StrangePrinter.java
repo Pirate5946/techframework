@@ -1,4 +1,4 @@
-package advance.lintcode.hard;
+package algorithm.lintcode.hard;
 
 import java.util.ArrayList;
 

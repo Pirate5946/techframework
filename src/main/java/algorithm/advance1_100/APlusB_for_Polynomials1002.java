@@ -1,4 +1,4 @@
-package advance.PAT_AdvanceLevel.advance1_100;
+package algorithm.advance1_100;
 
 import java.util.Iterator;
 import java.util.Scanner;

@@ -1,4 +1,4 @@
-package advance.datastructure;
+package entity;
 
 import java.util.Iterator;
 import java.util.List;

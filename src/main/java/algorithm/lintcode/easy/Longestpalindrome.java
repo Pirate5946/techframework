@@ -1,4 +1,4 @@
-package advance.lintcode.easy;
+package algorithm.lintcode.easy;
 
 public class Longestpalindrome {
 	/*

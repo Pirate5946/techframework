@@ -1,4 +1,4 @@
-package advance.PAT_AdvanceLevel.advance1_100;
+package algorithm.advance1_100;
 
 public class test{
 	public static void main(String[] args) {

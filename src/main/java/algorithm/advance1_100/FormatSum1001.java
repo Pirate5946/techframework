@@ -1,4 +1,4 @@
-package advance.PAT_AdvanceLevel.advance1_100;
+package algorithm.advance1_100;
 
 import java.text.DecimalFormat;
 import java.util.Scanner;
