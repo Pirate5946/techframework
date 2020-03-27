@@ -1,0 +1,36 @@
+#### sql 中 on 和where有什么区别      
+on条件是在生成临时表时使用的条件，它不管on中的条件是否为真，都会返回左边表中的记录。   
+```sql
+select 
+    dep.dept_no
+    ,dep.emp_no
+    ,sal.salary
+		,dep.from_date
+		,dep.to_date
+from
+    dept_manager dep
+left join salaries sal
+    on dep.emp_no = sal.emp_no
+    and dep.to_date = '9999-01-01'
+    and sal.to_date = '9999-01-01';	
+```
+ 
+where条件是在临时表生成好后，再对临时表进行过滤的条件。这时已经没有left join的含义（必须返回左边表的记录）了，条件不为真的就全部过滤掉。
+```sql
+-- 正确栗子
+select 
+    dep.dept_no
+    ,dep.emp_no
+    ,sal.salary
+    ,dep.from_date
+    ,dep.to_date
+from
+    dept_manager dep
+left join salaries sal
+    on dep.emp_no = sal.emp_no
+where	
+    dep.to_date = '9999-01-01'
+    and sal.to_date = '9999-01-01';				
+
+```
+
