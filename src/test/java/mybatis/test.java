@@ -1,7 +1,7 @@
-package base;
+package mybatis;
 
-import entity.Employee;
 import cn.hutool.json.JSONUtil;
+import entity.Employee;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -9,18 +9,18 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
- * @ClassName Test
- * @Descrption TODO
- * @Author lt
- * @Date 2019/11/10 0:06
- * @Version 1.0
+ * description: teset
+ *
+ * @author : LIUTAO
+ * create at : 2020/3/29 下午4:16
  **/
-public class Test {
+public class test {
     public static void main(String[] args) {
-
         /*
          * 1.加载mybatis的配置文件，初始化mybatis，创建出SqlSessionFactory，是创建SqlSession的工厂
          * 这里只是为了演示的需要，SqlSessionFactory临时创建出来，在实际的使用中，SqlSessionFactory只需要创建一次，当作单例来使用
@@ -47,5 +47,6 @@ public class Test {
         System.out.println("查询结果：" + JSONUtil.toJsonStr(result));
         //~output :   查询到的数据总数：5
         System.out.println("所有员工数: "+result1.size());
+
     }
 }

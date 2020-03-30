@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mybatis.mapper.EmployeesMapper" >
+
+    <resultMap id="BaseResultMap" type="entity.Employee" >
+        <id column="EMP_NO" property="empNo"  />
+        <id column="BIRTH_DATE" property="birthDate"  />
+        <result column="FIRST_NAME" property="firstName"  />
+        <result column="LAST_NAME" property="lastName"  />
+        <result column="GENDER" property="gender"  />
+        <result column="HIRE_DATE" property="hireDate"  />
+    </resultMap>
+
+    <select id="selectByEmpNo" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    	EMP_NO
+    	,BIRTH_DATE
+    	, FIRST_NAME
+    	, LAST_NAME
+    	, GENDER
+    	, HIRE_DATE
+    	from EMPLOYEES
+    	<if test="empNo != null">
+            where EMP_NO = #{empNo}
+        </if>
+  </select>
+
+
+</mapper>
