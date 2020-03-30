@@ -79,6 +79,7 @@ MyBatis 引用Mapper 接口这种调用方式，纯粹是为了满足面向接�
 #### 3. 框架支撑层
 
 ##### 3.1 事务管理机制
+- [《深入理解mybatis原理》 MyBatis事务管理机制](https://blog.csdn.net/u010349169/article/details/37992171)
       
 ##### 3.2 连接池管理机制
       
@@ -273,8 +274,52 @@ MyBatis在初始化时，解析此文件，根据<dataSource>的type属性来创
     
 ### [《深入理解mybatis原理》 MyBatis事务管理机制](https://blog.csdn.net/u010349169/article/details/37992171)
 
+#### 1. 概述
+对数据库的事务而言，应该具有以下几点：创建（create）、提交（commit）、回滚（rollback）、关闭（close）。对应地，MyBatis将事务抽象成了Transaction接口：其接口定义如下：
 
+MyBatis的事务管理分为两种形式：
 
+一、使用JDBC的事务管理机制：即利用java.sql.Connection对象完成对事务的提交（commit()）、回滚（rollback()）、关闭（close()）等
+
+二、使用MANAGED的事务管理机制：这种机制MyBatis自身不会去实现事务管理，而是让程序的容器如（JBOSS，Weblogic）来实现对事务的管理
+
+#### 2. 事务的配置、创建和使用
+##### 1. 我们在使用MyBatis时，一般会在MyBatisXML配置文件中定义类似如下的信息：
+   
+<environment>节点定义了连接某个数据库的信息，其子节点<transactionManager> 的type 会决定我们用什么类型的事务管理机制。
+   
+##### 2.事务工厂的创建       
+MyBatis事务的创建是交给TransactionFactory 事务工厂来创建的，     
+如果type = "JDBC",则MyBatis会创建一个JdbcTransactionFactory.class 实例；如果type="MANAGED"，则MyBatis会创建一个MangedTransactionFactory.class实例。
+
+##### 3. 事务工厂TransactionFactory
+事务工厂Transaction定义了创建Transaction的两个方法：   
+- 一个是通过指定的Connection对象创建Transaction，
+- 另外是通过数据源DataSource来创建Transaction。     
+
+与JDBC 和MANAGED两种Transaction相对应，TransactionFactory有两个对应的实现的子类
+
+##### 4. 事务Transaction的创建
+```java
+
+TransactionFactory factory = (TransactionFactory) resolveClass(type).getDeclaredConstructor().newInstance();
+
+```
+
+##### 5. JdbcTransaction
+JdbcTransaction直接使用JDBC的提交和回滚事务管理机制 。       
+它依赖与从dataSource中取得的连接connection 来管理transaction 的作用域，connection对象的获取被延迟到调用getConnection()方法。     
+如果autocommit设置为on，开启状态的话，它会忽略commit和rollback。
+
+直观地讲，就是JdbcTransaction是使用的java.sql.Connection 上的commit和rollback功能，      
+JdbcTransaction只是相当于对java.sql.Connection事务处理进行了一次包装（wrapper），       
+Transaction的事务管理都是通过java.sql.Connection实现的
+
+##### 6. ManagedTransaction
+ManagedTransaction让容器来管理事务Transaction的整个生命周期，           
+意思就是说，使用ManagedTransaction的commit和rollback功能不会对事务有任何的影响，        
+它什么都不会做，它将事务管理的权利移交给了容器来实现。
+      
 ---
 
 [Mybatis3源码分析（一）：从sqlSession说起](http://blog.csdn.net/flashflight/article/details/43039281)    
