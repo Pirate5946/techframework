@@ -26,7 +26,7 @@ public class SortedThread {
 	static class Foo {
 
 		private boolean firstFinished;
-		private boolean secondFineshed;
+		private boolean secondFinished;
 		private Object lock = new Object();
 
 		public Foo() {
@@ -51,7 +51,7 @@ public class SortedThread {
 				}
 				// printSecond.run() outputs "second". Do not change or remove this line.
 				printSecond.run();
-				secondFineshed = true;
+				secondFinished = true;
 				lock.notifyAll();
 			}
 		}
@@ -59,7 +59,7 @@ public class SortedThread {
 		public void third(Runnable printThird) throws InterruptedException {
 
 			synchronized (lock) {
-				while (!secondFineshed) {
+				while (!secondFinished) {
 					lock.wait();
 				}
 				// printThird.run() outputs "third". Do not change or remove this line.

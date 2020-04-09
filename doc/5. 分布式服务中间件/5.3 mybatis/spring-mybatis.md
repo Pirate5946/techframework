@@ -1,4 +1,28 @@
+- [spring-mybatis 官方文档](http://mybatis.org/spring/zh/factorybean.html)
 - [B站学习资料](https://www.bilibili.com/video/BV19441197bs?t=80)
+
+#### 问题：mapper接口 如何生成的动态代理类？
+
+#### 问题： spring如何管理 所有mapper接口 生成的动态代理类？
+
+#### 问题： spring如何管理 SqlSessionFactory ？
+
+#### 问题：如何配置双数据源？
+
+在基础的 MyBatis 用法中，是通过 SqlSessionFactoryBuilder 来创建 SqlSessionFactory 的。 而在 MyBatis-Spring 中，则使用 SqlSessionFactoryBean 来创建。
+
+> mybatis生成的代理对象怎么放入spring容器中？？？ 第三方（非spring自己）产生的对象如何交给spring容器管理      
+- @Bean 将第三方框架在spring运行时产生的对象 交给了Spring容器管理       
+- 实现FactoryBean接口
+- @Import 实现 ImportBeanDefinitionRegistrar
+
+FactoryBean 和 BeanFactory 的区别？？？
+
+FactoryBean 和 普通Bean的区别 ？？？     
+实例化的时间点、存放的位置不一样
+
+Class --> sacn --> BeanDefinition --> map --> new Bean
+
 
 [myBatis3与spring整合之SqlSessionFactoryBean](http://blog.csdn.net/u010538302/article/details/51822479)  
 在基本的MyBatis中，session工厂可以使用SqlSessionFactoryBuilder来创建。     

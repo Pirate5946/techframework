@@ -1,5 +1,6 @@
 [mybatis 官方文档](https://mybatis.org/mybatis-3/zh/getting-started.html)
 - [B站学习资料](https://www.bilibili.com/video/BV1jE411W7cq?p=1)
+![image](https://img-blog.csdn.net/20141028232313593?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbHVhbmxvdWlz/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
 
 ### 为什么要用 mybatis 这种持久层框架？
@@ -319,6 +320,18 @@ Transaction的事务管理都是通过java.sql.Connection实现的
 ManagedTransaction让容器来管理事务Transaction的整个生命周期，           
 意思就是说，使用ManagedTransaction的commit和rollback功能不会对事务有任何的影响，        
 它什么都不会做，它将事务管理的权利移交给了容器来实现。
+
+
+### [《深入理解mybatis原理》 MyBatis的一级缓存实现详解 及使用注意事项](https://blog.csdn.net/u010349169/article/details/41280959)
+1、什么是一级缓存？为什么使用一级缓存？
+
+2、MyBatis的一级缓存是怎样组织的？（即SqlSession对象中的缓存是怎样组织的？）
+
+3、一级缓存的生命周期有多长？
+
+4、Cache接口的设计以及CacheKey的定义
+
+5、一级缓存的性能分析以及应该注意的事项
       
 ---
 
@@ -358,21 +371,6 @@ ManagedTransaction让容器来管理事务Transaction的整个生命周期，
 - （代替原来的JDBC开发，sqlsession线程不安全，生命周期为方法体内）
 ---
 
-[myBatis3与spring整合之SqlSessionFactoryBean](http://blog.csdn.net/u010538302/article/details/51822479)  
-在基本的MyBatis中，session工厂可以使用SqlSessionFactoryBuilder来创建。     
-在MyBatis-Spring中，使用==SqlSessionFactoryBean==来替代。  
-SqlSessionFactoryBean实现了spring的FactoryBean接口。   
-这就说明由==spring最终创建的bean不是SqlSessionFactoryBean本身，而是工厂类的getObject()返回的方法结果==。  
-这种情况下，spring将会在应用启动时为你创建SqlSessionFactory对象，然后将它以SqlSessionFactory为名来存储。 
-
-在一般的MyBatis-spring用法中，你不需要直接使用SqlSessionFactoryBean或其对应的SqlSessionFactory。 
-相反，==session工厂将会被注入到MapperFactoryBean或其它扩展了SqlSessionDaoSupport的DAO中==。
-
-#### spring_mybatis.xml
-- SqlSessionFactory有一个单独的必须属性，就是JDBC的==DataSource==。这可以是任意的DataSource。其配置应该和其它spring数据库连接是一样的。
-- 使用工厂bean的mapperLocations属性。==mapperLocations属性==使用一个资源位置的list。这个属性可以用来指定myBatis的xml映射器文件的位置（不需要在mybatis配置文件手工配置每个mapper节点）
-
----
 [Mybatis通过动态代理生成Mapper接口实现类的源码分析](http://blog.csdn.net/starryninglong/article/details/68961226)
 
 首先熟悉三个概念： 
@@ -396,7 +394,9 @@ java动态代理的实现有2种方式
     - Proxy 提供静态方法用于创建动态代理类和实例。
 - 第三方库cglib     
 CGLIB是一个功能强大的，高性能、高质量的代码生成库，用于在运行期扩展Java类和实现Java接口。
+
 ---
+
 [mybatis如何根据mapper接口生成其实现类](http://www.cnblogs.com/ChenLLang/p/5307590.html)
 
 mybatis里头给sqlSession指定执行哪条sql的时候，有两种方式
