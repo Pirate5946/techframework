@@ -1,5 +1,7 @@
 package algorithm.sort;
 
+import cn.hutool.core.util.StrUtil;
+
 import java.util.Arrays;
 
 /**
@@ -55,12 +57,30 @@ public class HeapSortTopK_2 {
         return array;
     }
 
+    //堆排序
+    public static int[] minTopK(int[] array, int k) {
+        long startTime = System.currentTimeMillis();
+        array = buildMaxHeap(array); //初始建堆，array[0]为堆中最大的元素
+        for (int i = array.length - 1; i >= array.length - k; i--) {
+
+            int temp = array[0];  //堆顶元素和堆底元素交换，得到当前最大元素正确的排序位置
+            array[0] = array[i];
+            array[i] = temp;
+            changeDownToUp(array, 0, i);  //将剩余的元素整理成大顶堆
+        }
+        long endTime = System.currentTimeMillis();
+        System.out.println(StrUtil.format("获取最小Top {}结束，耗时：{}秒", k, (endTime - startTime) / 1000.0));
+
+        return array;
+    }
+
     public static void main(String args[]) {
         int[] array = {82, 39, 68, 25, 16, 61, 59, 7, 116, 43};
         System.out.println("堆排序前:");
         System.out.println(Arrays.toString(array));
         System.out.println("堆排序后:");
         System.out.println(Arrays.toString(heapSort(array)));
+        System.out.println(Arrays.toString(minTopK(array, 10)));
     }
 
 }

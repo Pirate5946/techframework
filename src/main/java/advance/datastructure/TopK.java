@@ -19,6 +19,9 @@ import java.util.Random;
  *   2. 通过多线程 从1000万个int 中 找到最小的 10个int
  *   	核心代码： Arrays.parallelSort （对 int[] 进行多线程排序）
  *   运行程序发现   time1到time2 文件IO 花费了大部分时间
+ *
+ *   如果 k << n ,建议使用堆排序 更快，
+ *   如果整体排序，建议快速排序 Arrays.parallelSort
  */
 public class TopK {
 	public static void main(String args[]) throws IOException{
