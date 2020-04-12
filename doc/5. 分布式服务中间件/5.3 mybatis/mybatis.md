@@ -1,12 +1,28 @@
 [mybatis 官方文档](https://mybatis.org/mybatis-3/zh/getting-started.html)
-- [B站学习资料](https://www.bilibili.com/video/BV1jE411W7cq?p=1)
+
+[B站学习资料](https://www.bilibili.com/video/BV1jE411W7cq?p=1)
+
 ![image](https://img-blog.csdn.net/20141028232313593?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbHVhbmxvdWlz/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
-
-### 为什么要用 mybatis 这种持久层框架？
+## 提出问题
+### 1. 为什么要用 mybatis 这种持久层框架？
 1. 原始的JDBC 访问数据库，没有用到数据库连接池，频繁创建销毁连接影响效率
+
 2. sql、配置文件耦合在代码里，不方便全局修改
+    - mybatis 全局单例配置对象 SqlSessionFactory 持有 Configuration
+
 3. 消除了重复的模板代码
+
+### 2. 为什么可以通过接口和配置信息完成数据库操作？
+
+##### 解析配置信息，获取数据库连接、sql、其他配置信息
+
+#####  动态代理mapper类          
+- mapper接口注册：       
+应用初始化阶段，解析指定包， HashMap保存包下所有的mapper
+- 根据mapper接口获取 mapper代理工厂类
+- 反射调用代理类方法 
+
 
 ### 口述理解
 1. 初始化配置信息到配置类  Configuration , 里面包含数据库连接信息，所有的sql语句配置，数据库配置项。。。
@@ -322,17 +338,157 @@ ManagedTransaction让容器来管理事务Transaction的整个生命周期，
 它什么都不会做，它将事务管理的权利移交给了容器来实现。
 
 
+
+### 《深入理解mybatis原理》 MyBatis缓存机制的设计与实现
+MyBatis将数据缓存设计成两级结构，分为一级缓存、二级缓存：
+
+       一级缓存是Session会话级别的缓存，位于表示一次数据库会话的SqlSession对象之中，又被称之为本地缓存。一级缓存是MyBatis内部实现的一个特性，用户不能配置，默认情况下自动支持的缓存，用户没有定制它的权利（不过这也不是绝对的，可以通过开发插件对它进行修改）；
+
+       二级缓存是Application应用级别的缓存，它的是生命周期很长，跟Application的声明周期一样，也就是说它的作用范围是整个Application应用。
+
+![image](https://img-blog.csdn.net/20141122222537708)
+
+
 ### [《深入理解mybatis原理》 MyBatis的一级缓存实现详解 及使用注意事项](https://blog.csdn.net/u010349169/article/details/41280959)
 1、什么是一级缓存？为什么使用一级缓存？
+```
+每当我们使用MyBatis开启一次和数据库的会话，MyBatis会创建出一个SqlSession对象表示一次数据库会话。
 
+在对数据库的一次会话中，我们有可能会反复地执行完全相同的查询语句，如果不采取一些措施的话，每一次查询都会查询一次数据库,而我们在极短的时间内做了完全相同的查询，那么它们的结果极有可能完全相同，由于查询一次数据库的代价很大，这有可能造成很大的资源浪费。
+
+为了解决这一问题，减少资源的浪费，MyBatis会在表示会话的SqlSession对象中建立一个简单的缓存，将每次查询到的结果结果缓存起来，当下次查询的时候，如果判断先前有个完全一样的查询，会直接从缓存中直接将结果取出，返回给用户，不需要再进行一次数据库查询了。
+
+如下图所示，MyBatis会在一次会话的表示----一个SqlSession对象中创建一个本地缓存(local cache)，对于每一次查询，都会尝试根据查询的条件去本地缓存中查找是否在缓存中，如果在缓存中，就直接从缓存中取出，然后返回给用户；否则，从数据库读取数据，将查询结果存入缓存并返回给用户。
+```
 2、MyBatis的一级缓存是怎样组织的？（即SqlSession对象中的缓存是怎样组织的？）
+```
+ 由于MyBatis使用SqlSession对象表示一次数据库的会话，
+那么，对于会话级别的一级缓存也应该是在SqlSession中控制的。
 
+SqlSession 只是一个MyBatis对外的接口，SqlSession 将它的工作交给了Executor执行器这个角色来完成，负责完成对数据库的各种操作。  
+当创建了一个SqlSession对象时，MyBatis会为这个SqlSession对象创建一个新的Executor执行器，       
+而缓存信息就被维护在这个Executor执行器中，       
+MyBatis将缓存和对缓存相关的操作封装成了Cache接口中
+
+```
 3、一级缓存的生命周期有多长？
+```text
+a. MyBatis在开启一个数据库会话时，会 创建一个新的SqlSession对象，SqlSession对象中会有一个新的Executor对象，Executor对象中持有一个新的PerpetualCache对象；当会话结束时，SqlSession对象及其内部的Executor对象还有PerpetualCache对象也一并释放掉。
 
+b. 如果SqlSession调用了close()方法，会释放掉一级缓存PerpetualCache对象，一级缓存将不可用；
+
+c. 如果SqlSession调用了clearCache()，会清空PerpetualCache对象中的数据，但是该对象仍可使用；
+
+d.SqlSession中执行了任何一个update操作(update()、delete()、insert()) ，都会清空PerpetualCache对象的数据，但是该对象可以继续使用；
+
+```
 4、Cache接口的设计以及CacheKey的定义
+```text
+怎样判断某两次查询是完全相同的查询
 
+1. 传入的 statementId
+
+2. 查询时要求的结果集中的结果范围 （结果的范围通过rowBounds.offset和rowBounds.limit表示）；
+
+3. 这次查询所产生的最终要传递给JDBC java.sql.Preparedstatement的Sql语句字符串（boundSql.getSql() ）
+
+4. 传递给java.sql.Statement要设置的参数值
+
+
+```
 5、一级缓存的性能分析以及应该注意的事项
-      
+```text
+1.MyBatis对会话（Session）级别的一级缓存设计的比较简单，就简单地使用了HashMap来维护，并没有对HashMap的容量和大小进行限制。
+
+对于数据变化频率很大，并且需要高时效准确性的数据要求，我们使用SqlSession查询的时候，要控制好SqlSession的生存时间，SqlSession的生存时间越长，它其中缓存的数据有可能就越旧，从而造成和真实数据库的误差       
+
+
+2.  一级缓存是一个粗粒度的缓存，没有更新缓存和缓存过期的概念
+
+对于只执行、并且频繁执行大范围的select操作的SqlSession对象，SqlSession对象的生存时间不应过长。
+
+
+```      
+
+### [《深入理解mybatis原理》 MyBatis的二级缓存的设计原理](https://blog.csdn.net/u010349169/article/details/41408341)
+
+#### 1.MyBatis的缓存机制整体设计以及二级缓存的工作模式
+```
+当开一个会话时，一个SqlSession对象会使用一个Executor对象来完成会话操作，       
+MyBatis的二级缓存机制的关键就是对这个Executor对象做文章。        
+如果用户配置了"cacheEnabled=true"，那么MyBatis在为SqlSession对象创建Executor对象时，会对Executor对象加上一个装饰者：CachingExecutor，        
+这时SqlSession使用CachingExecutor对象来完成操作请求。     
+
+CachingExecutor对于查询请求，会先判断该查询请求在Application级别的二级缓存中是否有缓存结果，     
+如果有查询结果，则直接返回缓存结果；如果缓存中没有，再交给真正的Executor对象来完成查询操作，      
+之后CachingExecutor会将真正Executor返回的查询结果放置到缓存中，然后在返回给用户    
+
+
+```
+
+#### 2 . MyBatis二级缓存的划分
+```text
+MyBatis并不是简单地对整个Application就只有一个Cache缓存对象，它将缓存划分的更细，即是Mapper级别的，即每一个Mapper都可以拥有一个Cache对象，具体如下：
+
+a.为每一个Mapper分配一个Cache缓存对象（使用<cache>节点配置）；
+
+b.多个Mapper共用一个Cache缓存对象（使用<cache-ref>节点配置）；
+
+
+```
+
+#### 3. 使用二级缓存，必须要具备的条件
+```text
+想使某条Select查询支持二级缓存，你需要保证：
+
+   1.  MyBatis支持二级缓存的总开关：全局配置变量参数   cacheEnabled=true
+
+   2. 该select语句所在的Mapper，配置了<cache> 或<cached-ref>节点，并且有效
+
+   3. 该select语句的参数 useCache=true
+
+```
+
+#### 4. 一级缓存和二级缓存的使用顺序
+```
+如果你的MyBatis使用了二级缓存，并且你的Mapper和select语句也配置使用了二级缓存，那么在执行select查询的时候，MyBatis会先从二级缓存中取输入，其次才是一级缓存，即MyBatis查询数据的顺序是：
+
+   二级缓存 ———> 一级缓存——> 数据库
+```
+
+#### 5. 二级缓存实现的选择
+使用MyBatis的二级缓存有三个选择:
+```text
+1.MyBatis自身提供的缓存实现；
+
+2. 用户自定义的Cache接口实现；
+
+3.跟第三方内存缓存库的集成；
+```
+
+#### 6.  MyBatis自身提供的二级缓存的实现
+```text
+MyBatis主要提供了以下几个刷新和置换策略：
+
+     LRU：（Least Recently Used）,最近最少使用算法，即如果缓存中容量已经满了，会将缓存中最近做少被使用的缓存记录清除掉，然后添加新的记录；
+
+     FIFO：（First in first out）,先进先出算法，如果缓存中的容量已经满了，那么会将最先进入缓存中的数据清除掉；
+
+     Scheduled：指定时间间隔清空算法，该算法会以指定的某一个时间间隔将Cache缓存中的数据清空
+
+```
+
+### [如何细粒度地控制你的MyBatis二级缓存(mybatis-enhanced-cache插件实现)](https://blog.csdn.net/u010349169/article/details/41800511)
+对于某些表执行了更新(update、delete、insert)操作后，如何去清空跟这些表有关联的查询语句所造成的缓存；
+
+最理想的解决方案就是：
+
+          对于某些表执行了更新(update、delete、insert)操作后，如何去清空跟这些表有关联的查询语句所造成的缓存
+#### 当前MyBatis二级缓存的工作机制：
+     
+
+
+
 ---
 
 [Mybatis3源码分析（一）：从sqlSession说起](http://blog.csdn.net/flashflight/article/details/43039281)    
@@ -423,3 +579,7 @@ Configuration 的一些属性的初始化
 将真实地 Connection 对象 包装成 PooledConnection ，调用close方法时，没有关闭连接，而是放入连接池
 
 []: https://img-blog.csdn.net/20141028140852531?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbHVhbmxvdWlz/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast
+
+### 装饰模式
+    CachingExecutor是Executor的装饰者，以增强Executor的功能，使其具有缓存查询的功能
+
