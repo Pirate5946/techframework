@@ -567,6 +567,9 @@ mybatis通过JDK的动态代理方式，在启动加载配置文件时，根据�
 ---
 ## 涉及到的设计模式
 
+### 单例模式
+SqlSessionFactory
+
 ### 建造者模式 Builder
 Configuration 的一些属性的初始化
 - Environment.Builder
