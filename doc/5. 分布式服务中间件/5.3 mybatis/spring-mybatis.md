@@ -2,6 +2,15 @@
 - [B站学习资料](https://www.bilibili.com/video/BV19441197bs?t=80)
 
 #### 问题：mapper接口 如何生成的动态代理类？
+spring服务启动时，解析了mapper包路径下的所有mapper接口，
+
+```java
+org.apache.ibatis.binding.MapperProxyFactory.newInstance(org.apache.ibatis.binding.MapperProxy<T>)
+
+Proxy.newProxyInstance(mapperInterface.getClassLoader(), new Class[] { mapperInterface }, mapperProxy);
+```       
+
+生成了动态代理类，交给spring容器管理
 
 #### 问题： spring如何管理 所有mapper接口 生成的动态代理类？
 

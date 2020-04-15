@@ -1,6 +1,6 @@
 package advance.datastructureandalgorithm.tree;
 
-import algorithm.tree.TreeNode;
+import advance.datastructureandalgorithm.tree.TreeNode;
 
 /**
  * description: 中序遍历树

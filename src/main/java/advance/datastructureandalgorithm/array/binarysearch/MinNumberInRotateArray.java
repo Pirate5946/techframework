@@ -1,4 +1,4 @@
-package advance.datastructureandalgorithm.array;
+package advance.datastructureandalgorithm.array.binarysearch;
 
 /**
  * description: 在旋转后的递增数组中寻找最小的数字

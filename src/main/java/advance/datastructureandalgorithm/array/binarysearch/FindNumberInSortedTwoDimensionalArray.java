@@ -1,4 +1,4 @@
-package advance.datastructureandalgorithm.array;
+package advance.datastructureandalgorithm.array.binarysearch;
 
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;

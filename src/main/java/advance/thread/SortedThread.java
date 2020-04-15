@@ -74,8 +74,11 @@ public class SortedThread {
 		Foo f = new Foo();
 		Thread t1 = new Thread(() -> {
 			try {
-				f.first(() -> {
-					System.out.println("First ");
+				f.first(new Runnable() {
+					@Override
+					public void run() {
+						System.out.println("First ");
+					}
 				});
 			} catch (InterruptedException e) {
 				e.printStackTrace();

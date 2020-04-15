@@ -1,6 +1,6 @@
 package advance.datastructureandalgorithm.tree;
 
-import algorithm.tree.TreeNode;
+import advance.datastructureandalgorithm.*;
 
 /**
  * description:
@@ -14,14 +14,14 @@ import algorithm.tree.TreeNode;
  * create at : 2020/1/5 下午5:55
  **/
 public class HasSubTree {
-    public boolean hasSubtree(algorithm.tree.TreeNode root1, algorithm.tree.TreeNode root2) {
+    public boolean hasSubtree(TreeNode root1, TreeNode root2) {
         if(root1 == null || root2 == null) {
             return false;
         }
         return check(root1, root2) || hasSubtree(root1.left, root2) || hasSubtree(root1.right, root2);
     }
 
-    public boolean check(algorithm.tree.TreeNode h, TreeNode t2) {
+    public boolean check(TreeNode h, TreeNode t2) {
         if (t2 == null) {
             return true;
         }

@@ -33,22 +33,30 @@ public class SortedThreadLockSupport {
     private static void lockSupport(char[] charArrA, char[] charArrB) {
 
         t1 = new Thread(() -> {
-            for (char c : charArrA) {
-                System.out.println((int)c);
-                LockSupport.unpark(t2); // 可以先unpark 再park
-                LockSupport.park(t1);
-            }
+            aMethod(charArrA);
         }, "t1");
 
         t2 = new Thread(() -> {
-            for (char c : charArrB) {
-                LockSupport.park(t2);
-                System.out.println(c);
-                LockSupport.unpark(t1);
-            }
+            bMethod(charArrB);
         }, "t2");
 
         t1.start();
         t2.start();
+    }
+
+    private static void bMethod(char[] charArrB) {
+        for (char c : charArrB) {
+            LockSupport.park(t2);
+            System.out.println(c);
+            LockSupport.unpark(t1);
+        }
+    }
+
+    private static void aMethod(char[] charArrA) {
+        for (char c : charArrA) {
+            System.out.println((int)c);
+            LockSupport.unpark(t2); // 可以先unpark 再park
+            LockSupport.park(t1);
+        }
     }
 }
