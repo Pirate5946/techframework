@@ -21,4 +21,22 @@ public class ReverseList {
         }
         return newHead;
     }
+
+    /**
+     * description:递归解法
+     *
+     * @author LIUTAO
+     * @date 2020/4/16 下午4:25
+     * @param head
+     * @return advance.datastructureandalgorithm.listnode.ListNode
+     */
+    public ListNode reverseListWithRecursive(ListNode head) {
+        if(head == null || head.next == null) {
+            return head;
+        }
+        ListNode preNode = reverseListWithRecursive(head.next);
+        head.next.next = head;
+        head.next = null;
+        return preNode;
+    }
 }

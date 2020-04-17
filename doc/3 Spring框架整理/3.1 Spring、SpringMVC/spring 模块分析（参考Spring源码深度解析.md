@@ -93,8 +93,5 @@ DefaultListableBeanFactory
 -  SimpleAliasRegister ： 主要使用 map
 -  
 
----
 
-- [Spring拓展接口之FactoryBean，我们来看看其源码实现](https://www.cnblogs.com/youzhibing/p/10528821.html)
-==通过FactoryBean可以创建实例化过程比较复杂的Bean==，至于我们以何种方式将FactoryBean的实例注册到Spring容器，在不同的spring版本，可以采用不同的方式
 

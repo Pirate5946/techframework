@@ -12,8 +12,14 @@
     - mybatis 全局单例配置对象 SqlSessionFactory 持有 Configuration
 
 3. 消除了重复的模板代码
+```text
+1. 获取连接，参数替换
+2. 释放连接
+3. 处理异常 
+```
 
 ### 2. 为什么可以通过接口和配置信息完成数据库操作？
+JDK动态代理 生成mapper接口的代理类，
 
 ##### 解析配置信息，获取数据库连接、sql、其他配置信息
 
@@ -52,6 +58,13 @@ return new DefaultSqlSession(configuration, executor, autoCommit);
 - Mapper.XXX
 
 内部实现 CachingExecutor.query()
+
+### 简单描述
+```text
+1、我们用mytabis操作数据库，有一个固定流程：先创建SqlSessionFactory，然后创建SqlSession，然后再创建获取mapper代理对象，最后利用mapper代理对象完成数据库的操作；一次数据库操作完成后需要关闭SqlSession；
+
+2、创建SqlSessionFactory实例的过程中，解析mybatis配置文件和映射文件，将内容都存放到Configuration实例的对应属性中；创建SqlSession的过程中，有创建事务Transaction、执行器Executor，以及DefaultSqlSession；Mapper代理对象的创建，利用的是JDK的动态代理，InvocationHandler是MapperProxy，后续Mapper代理对象方法的执行都会先经过MapperProxy的invoke方法；
+```
 
 ### [《深入理解mybatis原理》MyBatis的架构设计以及实例分析](https://blog.csdn.net/luanlouis/article/details/40422941)
 - [原理分析之二：框架整体设计](https://www.iteye.com/blog/chenjc-it-1460990)

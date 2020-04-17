@@ -21,13 +21,17 @@ import java.util.*;
 public class Test {
 
     public static void main(String[] args) {
-
-        for (int i = 0, j = 0; i < 1 && j < 1; i++, j++) {
-            System.out.println("i=" + i + " j=" + j);
-        }
-
-        "123".replaceAll("1", "hahaha ");
-
-
+        test1(test2());
     }
+
+    public static void test1(int i) {
+        System.out.println(i + 1);
+    }
+
+    public static int test2() {
+        System.out.println(2);
+        return 2;
+    }
+
+
 }
