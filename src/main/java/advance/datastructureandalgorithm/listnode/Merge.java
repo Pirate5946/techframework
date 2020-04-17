@@ -1,5 +1,7 @@
 package advance.datastructureandalgorithm.listnode;
 
+import java.util.List;
+
 /**
  * description: 输入两个单调递增的链表，输出两个链表合成后的链表，当然我们需要合成后的链表满足单调不减规则。
  *
@@ -9,6 +11,16 @@ package advance.datastructureandalgorithm.listnode;
 public class Merge {
 
 
+    public static void main(String[] args) {
+        ListNode node1 = new ListNode(1);
+        ListNode node2 = new ListNode(2);
+        ListNode root = node1;
+        root.next = node1;
+        // dead loop
+        node1.next = node2;
+        System.out.println(node1.val);
+        System.out.println(root.val);
+    }
 
     /**
      * description:遍历解法

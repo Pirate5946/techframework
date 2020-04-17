@@ -12,14 +12,30 @@ import java.util.concurrent.TimeUnit;
  **/
 public class ThreadState {
 
-    public static void main(String[] args) {
-        new Thread(new Running(), "RunningThread").start();
-        new Thread(new TimeWaiting(), "TimeWaitingThread").start();
-        new Thread(new Waiting(), "WaitingThread-1").start();
-        new Thread(new Waiting(), "WaitingThread-2").start();
+    public static void main(String[] args) throws InterruptedException {
+
+        Thread runningThread = new Thread(new Running(), "RunningThread");
+        runningThread.start();
+
+        Thread timeWaitingThread = new Thread(new TimeWaiting(), "TimeWaitingThread");
+        timeWaitingThread.start();
+
+        Thread waitingThread1 = new Thread(new Waiting(), "WaitingThread-1");
+        waitingThread1.start();
+
         // 使用两个Blocked线程，一个获取锁成功，另一个被阻塞
-        new Thread(new Blocked(), "BlockedThread-1").start();
-        new Thread(new Blocked(), "BlockedThread-2").start();
+        Thread blockThread1 = new Thread(new Blocked(), "BlockedThread-1");
+        Thread blockThread2 = new Thread(new Blocked(), "BlockedThread-2");
+        blockThread1.start();
+        blockThread2.start();
+
+        Thread.sleep(1000L);
+
+        System.out.println(runningThread.getName() + ":" + runningThread.getState());
+        System.out.println(timeWaitingThread.getName() + ":" +timeWaitingThread.getState());
+        System.out.println(waitingThread1.getName() + ":" + waitingThread1.getState());
+        System.out.println(blockThread1.getName() + ":" + blockThread1.getState());
+        System.out.println(blockThread2.getName() + ":" + blockThread2.getState());
     }
 
     /**

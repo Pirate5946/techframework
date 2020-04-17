@@ -6,7 +6,7 @@ package advance.designpattern;
  * @author : LIUTAO
  * create at : 2020/4/14 下午5:42
  **/
-public class SingletonPatton {
+public class SingletonPattonEnum {
 
     public enum MyEnumSingleton{
         demoFactory;
@@ -28,7 +28,9 @@ public class SingletonPatton {
 
     public static void main(String[] args) {
         for (int i = 0; i < 5; i++) {
-            System.out.println(SingletonPatton.getDemo().hashCode());
+            System.out.println(SingletonPattonEnum.getDemo().hashCode());
         }
     }
+
+
 }
