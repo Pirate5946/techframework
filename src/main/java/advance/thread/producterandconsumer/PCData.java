@@ -1,4 +1,4 @@
-package advance.producterandconsumer;
+package advance.thread.producterandconsumer;
 /**
  * 容器数据类型
  * @author ctk

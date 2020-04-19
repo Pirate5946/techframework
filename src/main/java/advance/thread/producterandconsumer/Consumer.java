@@ -1,4 +1,4 @@
-package advance.producterandconsumer;
+package advance.thread.producterandconsumer;
 /**
  * 消费者
  * @author ctk

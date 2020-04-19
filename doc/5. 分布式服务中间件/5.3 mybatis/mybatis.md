@@ -6,10 +6,17 @@
 
 ## 提出问题
 ### 1. 为什么要用 mybatis 这种持久层框架？
-1. 原始的JDBC 访问数据库，没有用到数据库连接池，频繁创建销毁连接影响效率
+1. 原始的JDBC 访问数据库，没有用到数据库连接池，频繁创建销毁连接影响效率        
+```
+mybatis 内部实现了 数据库连接池
+```
 
 2. sql、配置文件耦合在代码里，不方便全局修改
-    - mybatis 全局单例配置对象 SqlSessionFactory 持有 Configuration
+```text
+mybatis 通过读取配置信息，赋值给 Configuration， 
+
+全局单例配置对象 SqlSessionFactory 持有 Configuration
+```
 
 3. 消除了重复的模板代码
 ```text

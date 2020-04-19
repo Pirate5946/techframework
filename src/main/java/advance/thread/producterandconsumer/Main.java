@@ -1,4 +1,4 @@
-package advance.producterandconsumer;
+package advance.thread.producterandconsumer;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
