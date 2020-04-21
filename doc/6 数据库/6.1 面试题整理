@@ -1,8 +1,6 @@
 ### mysql 查询优化的思路
 
-### 事务隔离级别
-https://mp.weixin.qq.com/s/mZxAn7qRQ8EycVOcdql3hQ
-
+### [事务隔离级别](https://mp.weixin.qq.com/s/mZxAn7qRQ8EycVOcdql3hQ)
 
 #### 读未提交，读已提交，可重复读区别
 ##### 读未提交 
