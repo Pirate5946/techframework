@@ -1,17 +1,13 @@
-## Spring 面试题整理
-
-### Spring的IOC/DI
-控制翻转，依赖注入，将bean的加载、bean之间的依赖交给外部容器管理（applicationContext 、 map） 
-
-### 什么是AOP，切点，什么是切面？最好是举个例子
-
+- [Spring事务原理深入解析（AOP,Threadlocal, 隔离级别,传播级别）](https://blog.csdn.net/weixin_44366439/article/details/90381619)
 ### [spring 事务传播属性](https://blog.csdn.net/weixin_44366439/article/details/89030080)
-默认属性
+默认属性 REQUIRED
 ```text
 Propagation propagation() default Propagation.REQUIRED;
 ```
 对于REQUIRED传播级别，即使父事务中没有抛出异常，但是子事务中已经设置了回滚标志，那么父事务依然会回滚
+```text
 
+```
 
 ### spring 事务的实现原理、嵌套事务的实现原理
 AOP
@@ -31,30 +27,3 @@ AOP
 1. spring采用动态代理机制来实现事务控制，而动态代理最终都是要调用原始对象的，而原始对象在去调用方法时，是不会再触发代理了！
 
 2. Spring的事务管理是通过AOP实现的，其AOP的实现对于非final类是通过cglib这种方式，即生成当前类的一个子类作为代理类，然后在调用其下的方法时，会判断这个方法有没有@Transactional注解，如果有的话，则通过动态代理实现事务管理(拦截方法调用，执行事务等切面)。当b()中调用a()时，发现b()上并没有@Transactional注解，所以整个AOP代理过程(事务管理)不会发生。
-
-
-### spring 启动流程
-简单概括：
-```text
-
-1.刷新预处理
-2.将配置信息解析，注册到BeanFactory
-3.设置bean的类加载器
-4.如果有第三方想再bean加载注册完成后，初始化前做点什么(例如修改属性的值，修改bean的scope为单例或者多例。)，      
-提供了相应的模板方法，后面还调用了这个方法的实现，并且把这些个实现类注册到对应的容器中
-5.初始化当前的事件广播器
-6.初始化所有的bean
-7.广播applicationcontext初始化完成
-
-```
-
-### 如何解决bean的循环依赖问题？
-
-
-### 讲一讲Spring和SpringBoot的区别
-
-
-
-
-
-## SpringBoot 面试题整理
