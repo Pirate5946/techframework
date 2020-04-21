@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
  * 如下图，我们需要构造 2 道屏障，second 线程等待 first 屏障，third 线程等待 second 屏障
  *
  * 作者：pulsaryu
+ * 链接：<link>https://leetcode-cn.com/problems/print-in-order/</link>
  * 链接：<link>https://leetcode-cn.com/problems/print-in-order/solution/gou-zao-zhi-xing-ping-zhang-shi-xian-by-pulsaryu/</link>
  * 来源：力扣（LeetCode）
  * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
@@ -27,7 +28,7 @@ public class SortedThread {
 
 		private boolean firstFinished;
 		private boolean secondFinished;
-		private Object lock = new Object();
+		private final Object lock = new Object();
 
 		public Foo() {
 

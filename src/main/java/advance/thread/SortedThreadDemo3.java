@@ -12,6 +12,8 @@ public class SortedThreadDemo3 {
 
     static volatile ThreadFlag threadFlag = ThreadFlag.t1;
 
+    static volatile int flag = 1;
+
     public static void main(String[] args) {
 
         for (int i = 0; i < 100; i++) {
@@ -21,21 +23,24 @@ public class SortedThreadDemo3 {
 
     private static void sortedThreadDemo() {
         Thread a = new Thread(() -> {
+            while (flag != 1) { }
             System.out.print("A");
-            threadFlag = ThreadFlag.t2;
+//            threadFlag = ThreadFlag.t2;
+            flag = 2;
         });
 
         Thread b = new Thread(() -> {
-            while (threadFlag != ThreadFlag.t2) { }
+            while (flag != 2) { }
             System.out.print("B");
-            threadFlag = ThreadFlag.t3;
+            flag = 3;
         });
 
         Thread c = new Thread(() -> {
-            while (threadFlag != ThreadFlag.t3) {
+            while (flag != 3) {
 
             }
             System.out.println("C");
+            flag = 1;
         });
 
         a.start();

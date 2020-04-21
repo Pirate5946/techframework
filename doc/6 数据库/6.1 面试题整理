@@ -1,3 +1,25 @@
+#### mysql 查询优化的思路
+
+#### 事务隔离级别
+https://mp.weixin.qq.com/s/mZxAn7qRQ8EycVOcdql3hQ
+
+
+#### 读未提交，读已提交，可重复读区别
+##### 读未提交 
+可能出现脏读（读取到其他事务未提交的数据）、
+
+不能重复读： 在同一事务中，同样的条件，第一次读的数据和第二次读的「数据不一样」。（因为中间有其他事务提交了修改）
+
+幻读：在同一事务中，同样的条件，第一次和第二次读出来的「记录数不一样」。（因为中间有其他事务提交了插入/删除
+
+##### 读已提交
+可能出现 幻读、不可重复读
+
+##### 可重复读（mysql innoDB 采用）
+可能出现 幻读
+
+
+
 #### sql 中 on 和where有什么区别   ？？ 
 使用内连接（inner join / join）时没有区别  
 
@@ -38,3 +60,5 @@ where
 
 ```
 
+#### InnoDB与MyISAM对比
+![image](https://mmbiz.qpic.cn/mmbiz_png/ceNmtYOhbMQs4Ar4C7lr5CFmTkzO5qFP4ziaEN8O2vgic8ibP9RnGibTDcVaAxTKfTxeicpCrYquzWXRstmdviaCrSzA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)

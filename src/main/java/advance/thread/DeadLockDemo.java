@@ -53,6 +53,7 @@ class ThreadA1 extends Thread {
 	public ThreadA1(TaskA taskA) {
 		this.taskA = taskA;
 	}
+	@Override
 	public void run() {
 		taskA.taskA();
 	}
@@ -64,6 +65,7 @@ class ThreadB1 extends Thread {
 	public ThreadB1(TaskB task) {
 		this.task = task;
 	}
+	@Override
 	public void run() {
 		task.taskB();
 	}
