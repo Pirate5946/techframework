@@ -3,6 +3,9 @@ package advance.datastructureandalgorithm.map;/**
  */
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @ClassName HashMapTest
@@ -18,14 +21,21 @@ public class HashMapTest {
         map.put(null, 222);
         System.out.println(map.get(null));
         map.put(123, null);
+        map.put(123, null);
         System.out.println(map.get(123));
         System.out.println(map.toString());
 
+        Set set = new HashSet<Object>();
+        set.add(null);
+        set.add(null);
+        set.add(1);
+        System.out.println(set.toString());
+
+        ConcurrentHashMap concurrentHashMap = new ConcurrentHashMap();
+//        concurrentHashMap.put(111, null);
+        System.out.println(concurrentHashMap.toString());
 //        StringBuffer
 
-
-
-        Integer.parseInt("11");
     }
 
 }
