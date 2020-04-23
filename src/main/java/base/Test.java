@@ -21,8 +21,32 @@ import java.util.*;
 public class Test {
 
     public static void main(String[] args) {
-        test1(test2());
+        final int COUNT_BITS = Integer.SIZE - 3;
+        int running = -1 << COUNT_BITS;
+        System.out.println(running);
+        System.out.println(running );
+
+        System.out.println(getBinaryFromInt(2));
+        System.out.println(getBinaryFromInt(4));
+        System.out.println(getBinaryFromInt(running));
+        System.out.println(getBinaryFromInt(0 << COUNT_BITS));
+        System.out.println(getBinaryFromInt(1 << COUNT_BITS));
+        System.out.println(getBinaryFromInt(2 << COUNT_BITS));
+        System.out.println(getBinaryFromInt(3 << COUNT_BITS));
+
     }
+
+    public static String getBinaryFromInt(int i) {
+        StringBuilder string = new StringBuilder();
+        while (i != 0) {
+            int temp = i % 2;
+            i /= 2;
+            string.insert(0, temp);
+        }
+        return string.toString();
+    }
+
+
 
     public static void test1(int i) {
         System.out.println(i + 1);

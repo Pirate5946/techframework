@@ -1,3 +1,5 @@
+- [ConcurrentHashMap源码分析，轻取面试Offer（一）](https://blog.csdn.net/qq_35425070/article/details/84672765)
+
 ### ConcurrentHashMap 初始化是怎么做到线程安全的？
 就算有多个线程同时进行put操作，在初始化数组时使用了乐观锁CAS操作来决定到底是哪个线程有资格进行初始化，其他线程均只能等待。
 

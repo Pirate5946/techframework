@@ -1,3 +1,15 @@
+Spring事务管理功能，都是基于底层数据库本身的事务机制工作的
+
+### 脏读
+A事务读取到B事务未提交的数据
+
+### 不可重复读 （行级锁可以处理这个问题）
+A事务内相同条件多次读取，由于B事务修改或者删除数据，导致多次读取结果不一致
+
+### 幻读 (表级锁可以处理这个问题)
+A事务内相同条件多次读取，由于B事务新增数据，导致多次读取结果不一致
+
+
 - [Spring事务原理深入解析（AOP,Threadlocal, 隔离级别,传播级别）](https://blog.csdn.net/weixin_44366439/article/details/90381619)
 ### [spring 事务传播属性](https://blog.csdn.net/weixin_44366439/article/details/89030080)
 默认属性 REQUIRED
