@@ -1,3 +1,5 @@
+- [Spring 采用保存点(Savepoint)实现嵌套事务原理](https://www.jianshu.com/p/2f79ee33c8ad)
+
 Spring事务管理功能，都是基于底层数据库本身的事务机制工作的
 
 ### 脏读
