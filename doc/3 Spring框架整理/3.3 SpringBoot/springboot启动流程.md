@@ -1,3 +1,37 @@
+#### 上下文配置类  webEnvironment =  false
+org.springframework.context.annotation.AnnotationConfigApplicationContext
+
+#### 通过 BeanDefinition 加载bean
+org.springframework.beans.factory.support.AbstractBeanFactory#getBean(java.lang.String)
+
+#### IOC容器的组成部分
+BeanDefinitionMap 、 SingletonObjects 、 BeanProcessor 。。。
+
+#### 单例缓存池， IOC容器的组成部分
+org.springframework.beans.factory.support.DefaultSingletonBeanRegistry#singletonObjects
+```java
+/** Cache of singleton objects: bean name --> bean instance */
+private final Map<String, Object> singletonObjects = new ConcurrentHashMap<String, Object>(256);
+```
+
+### 三级缓存、循环依赖
+
+
+org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory#initializeBean(java.lang.String, java.lang.Object, org.springframework.beans.factory.support.RootBeanDefinition)
+
+实例化Bean 后置处理器的前置方法
+1. @PostConstruct 修饰的方法，
+2. 执行 afterPropertiesSet 方法
+3. 执行自定义的 init() 方法
+
+实例化bean
+
+实例化bean  后置处理器的后置方法        
+干预Bean的生成，修改Bean属性
+
+
+---
+
 ### 了解SpringBoot吗？那讲一下SpringBoot的启动流程吧
 - [SpringBoot启动原理解析](http://mp.weixin.qq.com/s?__biz=MzAxNjk4ODE4OQ==&mid=2247485911&idx=1&sn=c24b460e17eb7133b37b2f921aead2f7&chksm=9bed28a5ac9aa1b3fa3a3323884545a9158b33de69b0813a72ec77786a79923f8388b787de6a&mpshare=1&scene=1&srcid=#rd)
 
