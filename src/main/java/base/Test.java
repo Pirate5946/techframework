@@ -10,6 +10,8 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.zip.CheckedOutputStream;
 
 /**
  * @ClassName Test
@@ -20,24 +22,52 @@ import java.util.*;
  **/
 public class Test {
 
-    public static void main(String[] args) {
-        final int COUNT_BITS = Integer.SIZE - 3;
-        int running = -1 << COUNT_BITS;
-        System.out.println(running);
-        System.out.println(running );
+    private final AtomicInteger ctl = new AtomicInteger(ctlOf(RUNNING, 0));
 
-        System.out.println(getBinaryFromInt(2));
-        System.out.println(getBinaryFromInt(4));
-        System.out.println(getBinaryFromInt(running));
-        System.out.println(getBinaryFromInt(0 << COUNT_BITS));
-        System.out.println(getBinaryFromInt(1 << COUNT_BITS));
-        System.out.println(getBinaryFromInt(2 << COUNT_BITS));
-        System.out.println(getBinaryFromInt(3 << COUNT_BITS));
+    private static final int COUNT_BITS = Integer.SIZE - 3;
+    private static final int CAPACITY   = (1 << COUNT_BITS) - 1;
+
+    private static final int RUNNING    = -1 << COUNT_BITS;
+    private static final int SHUTDOWN   =  0 << COUNT_BITS;
+    private static final int STOP       =  1 << COUNT_BITS;
+    private static final int TIDYING    =  2 << COUNT_BITS;
+    private static final int TERMINATED =  3 << COUNT_BITS;
+
+    private static int runStateOf(int c)     { return c & ~CAPACITY; }
+    private static int workerCountOf(int c)  { return c & CAPACITY; }
+    private static int ctlOf(int rs, int wc) { return rs | wc; }
+
+    public void testCtl() {
+        int c = ctl.get();
+        System.out.println("c:"+ getBinaryFromInt(c));
+        System.out.println();
+        int workerCountOf = workerCountOf(c);
+        System.out.println("workerCountOf :" + workerCountOf);
+
+        int runStateOf = runStateOf(c);
+        System.out.println("runStateOf:" + runStateOf);
+        System.out.println("runStateOf1:" + runStateOf(1));
+
+    }
+
+    public static void main(String[] args) {
+
+
+        System.out.println("CAPACITY:" + getBinaryFromInt(CAPACITY));
+        System.out.println("~CAPACITY:" + getBinaryFromInt(~CAPACITY));
+        System.out.println("RUNNING:" + getBinaryFromInt(RUNNING));
+        System.out.println("TERMINATED:" + getBinaryFromInt(TERMINATED));
+        System.out.println("SHUTDOWN:" + getBinaryFromInt(SHUTDOWN));
+
+        System.out.println(0 < SHUTDOWN);
 
     }
 
     public static String getBinaryFromInt(int i) {
         StringBuilder string = new StringBuilder();
+        if (i == 0) {
+            return "0";
+        }
         while (i != 0) {
             int temp = i % 2;
             i /= 2;

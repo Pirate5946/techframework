@@ -13,23 +13,23 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Producer implements Runnable {
     private volatile boolean isRunning = true;
-    private BlockingQueue<PCData> queue;// 内存缓冲区
-    private static AtomicInteger count = new AtomicInteger();// 总数 原子操作
+    private BlockingQueue<PcData> queue;
+    private static AtomicInteger count = new AtomicInteger();
     private static final int SLEEPTIME = 1000;
 
-    public Producer(BlockingQueue<PCData> queue) {
+    public Producer(BlockingQueue<PcData> queue) {
         this.queue = queue;
     }
 
     @Override
     public void run() {
-        PCData data = null;
+        PcData data = null;
         Random r = new Random();
         System.out.println("start producting id:" + Thread.currentThread().getId());
         try {
             while (isRunning) {
                 Thread.sleep(r.nextInt(SLEEPTIME));
-                data = new PCData(count.incrementAndGet());
+                data = new PcData(count.incrementAndGet());
                 System.out.println(data + " 加入队列");
                 if (!queue.offer(data, 2, TimeUnit.SECONDS)) {
                     System.err.println(" 加入队列失败");

@@ -27,7 +27,7 @@ class ThreadDeadLock extends Thread {
 	
 	@Override
 	public void run() {
-		if (flag == "a") {
+		if ("a".equals(flag)) {
 			synchronized (threadA) {
 				System.out.println("a start");
 				try {
@@ -42,7 +42,7 @@ class ThreadDeadLock extends Thread {
 			}
 		}
 		
-		if (flag == "b") {
+		if ("b".equals(flag)) {
 			synchronized (threadB) {
 				System.out.println("b start");
 				try {

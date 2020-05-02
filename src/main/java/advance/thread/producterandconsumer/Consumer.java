@@ -8,9 +8,9 @@ import java.util.Random;
 import java.util.concurrent.BlockingQueue;
 
 public class Consumer implements Runnable{
-    private BlockingQueue<PCData> queue;
+    private BlockingQueue<PcData> queue;
     private static final int SLEEPTIME = 1000;
-    public Consumer(BlockingQueue<PCData> queue){
+    public Consumer(BlockingQueue<PcData> queue){
         this.queue = queue;
     }
 
@@ -20,7 +20,7 @@ public class Consumer implements Runnable{
         Random r = new Random();
         try{
             while(true){
-                PCData data = queue.take();
+                PcData data = queue.take();
                 if(data != null)
                 {
                     int re = data.getData() * data.getData();

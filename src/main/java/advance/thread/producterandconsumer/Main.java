@@ -12,13 +12,15 @@ import java.util.concurrent.LinkedBlockingDeque;
  */
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        BlockingQueue<PCData> queue = new LinkedBlockingDeque<>(10);
+        BlockingQueue<PcData> queue = new LinkedBlockingDeque<>(10);
         Producer p1 = new Producer(queue);
         Producer p2 = new Producer(queue);
         Producer p3 = new Producer(queue);
+
         Consumer c1 = new Consumer(queue);
         Consumer c2 = new Consumer(queue);
         Consumer c3 = new Consumer(queue);
+
         ExecutorService service = Executors.newCachedThreadPool();
         service.execute(p1);
         service.execute(p2);

@@ -1,22 +1,28 @@
 package advance.thread.producterandconsumer;
+
 /**
  * 容器数据类型
- * @author ctk
  *
+ * @author ctk
  */
-public class PCData {
+public class PcData {
+
     private final int intData;
-    public PCData(int d){
+
+    public PcData(int d) {
         intData = d;
     }
-    public PCData(String d){
+
+    public PcData(String d) {
         intData = Integer.valueOf(d);
     }
-    public int getData(){
+
+    public int getData() {
         return intData;
     }
+
     @Override
-    public String toString(){
-        return "data:"+intData;
+    public String toString() {
+        return "data:" + intData;
     }
 }

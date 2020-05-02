@@ -39,8 +39,11 @@ public class CyclicBarrierDemo {
     }
 
     public static void main(String[] args) {
-        CyclicBarrier cyclicBarrier = new CyclicBarrier(3, () -> {
-            System.out.println("本关卡所有前置任务完成，开始游戏...");
+        CyclicBarrier cyclicBarrier = new CyclicBarrier(3, new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("本关卡所有前置任务完成，开始游戏...");
+            }
         });
 
         new Thread(new PreTaskThread("加载地图数据", cyclicBarrier)).start();
