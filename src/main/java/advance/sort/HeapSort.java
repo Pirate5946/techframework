@@ -1,4 +1,4 @@
-package advance.datastructureandalgorithm.sort;
+package advance.sort;
 
 import advance.datastructureandalgorithm.TopK;
 import cn.hutool.core.util.StrUtil;
