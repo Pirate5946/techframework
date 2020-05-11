@@ -9,7 +9,8 @@ AutoConfiguredMapperScannerRegistrar继承了ImportBeanDefinitionRegistrar
 
 AutoConfiguredMapperScannerRegistrar继承了ImportBeanDefinitionRegistrar
 
-Spring在创建Service实例：UserServiceImpl的时候，发现依赖mapper（可能还有其他的实例依赖mapper），那么就会去spring容器获取mapper实例，没有则进行创建，然后注入进来（依赖注入）；
+Spring在创建Service实例：UserServiceImpl的时候，发现依赖mapper（可能还有其他的实例依赖mapper），    
+那么就会去spring容器获取mapper实例，没有则进行创建，然后注入进来（依赖注入）；
 
 
 - [Spring拓展接口之FactoryBean，我们来看看其源码实现](https://www.cnblogs.com/youzhibing/p/10528821.html)
