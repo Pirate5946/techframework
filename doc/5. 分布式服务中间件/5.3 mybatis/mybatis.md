@@ -30,7 +30,10 @@ JDK动态代理 生成mapper接口的代理类，
 
 ##### 解析配置信息，获取数据库连接、sql、其他配置信息
 
-#####  动态代理mapper类          
+#####  动态代理mapper类，如何完成扫描
+通过@MapperScan 中@Import 引入MapperScannerRegistrar， 然后在registerBeanDefinitions（）方法中
+通过传入的包名，遍历包下的所有类， 注册类的 BeanDefinition，交给spring实例化对应的Bean
+          
 - mapper接口注册：       
 应用初始化阶段，解析指定包， HashMap保存包下所有的mapper
 - 根据mapper接口获取 mapper代理工厂类
