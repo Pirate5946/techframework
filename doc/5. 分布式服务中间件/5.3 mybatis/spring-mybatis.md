@@ -1,6 +1,10 @@
 - [spring-mybatis 官方文档](http://mybatis.org/spring/zh/factorybean.html)
 - [B站学习资料](https://www.bilibili.com/video/BV19441197bs?t=80)
 
+通过动态代理和配置信息，封装了JDBC的操作
+
+mybatis相关的bean、配置信息的bean 需要交给Spring 生成实例、完成属性装配
+
 #### 问题：mapper接口 如何生成的动态代理类？
 spring服务启动时，解析了mapper包路径下的所有mapper接口，
 
