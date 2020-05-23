@@ -13,10 +13,14 @@ public class ReverseList {
         }
         ListNode newHead = null;
         ListNode currentHead = head;
+        // 判断 当前节点
         while(currentHead != null) {
+            // 获取当前节点的 next节点
             ListNode next = currentHead.next;
+            // 给新的当前节点 声明 next节点， 将当前节点赋值为 头结点
             currentHead.next = newHead;
             newHead = currentHead;
+            // 将next节点 赋值为当前节点
             currentHead = next;
         }
         return newHead;
