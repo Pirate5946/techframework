@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
  * 如下图，我们需要构造 2 道屏障，second 线程等待 first 屏障，third 线程等待 second 屏障
  *
  * 作者：pulsaryu
+ * 链接：<link>https://leetcode-cn.com/problems/print-in-order/</link>
  * 链接：<link>https://leetcode-cn.com/problems/print-in-order/solution/gou-zao-zhi-xing-ping-zhang-shi-xian-by-pulsaryu/</link>
  * 来源：力扣（LeetCode）
  * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
@@ -26,8 +27,8 @@ public class SortedThread {
 	static class Foo {
 
 		private boolean firstFinished;
-		private boolean secondFineshed;
-		private Object lock = new Object();
+		private boolean secondFinished;
+		private final Object lock = new Object();
 
 		public Foo() {
 
@@ -51,7 +52,7 @@ public class SortedThread {
 				}
 				// printSecond.run() outputs "second". Do not change or remove this line.
 				printSecond.run();
-				secondFineshed = true;
+				secondFinished = true;
 				lock.notifyAll();
 			}
 		}
@@ -59,7 +60,7 @@ public class SortedThread {
 		public void third(Runnable printThird) throws InterruptedException {
 
 			synchronized (lock) {
-				while (!secondFineshed) {
+				while (!secondFinished) {
 					lock.wait();
 				}
 				// printThird.run() outputs "third". Do not change or remove this line.
@@ -74,8 +75,11 @@ public class SortedThread {
 		Foo f = new Foo();
 		Thread t1 = new Thread(() -> {
 			try {
-				f.first(() -> {
-					System.out.println("First ");
+				f.first(new Runnable() {
+					@Override
+					public void run() {
+						System.out.println("First ");
+					}
 				});
 			} catch (InterruptedException e) {
 				e.printStackTrace();

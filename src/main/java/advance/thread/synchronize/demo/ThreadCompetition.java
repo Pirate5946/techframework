@@ -33,7 +33,9 @@ public class ThreadCompetition {
             @Override
             public void run() {
                 for (int i = 0; i < 5000000; i++) {
+                    // 非原子操作
                     count++;
+                    // 原子操作
                     atomicLong.getAndIncrement();
 
                 }
