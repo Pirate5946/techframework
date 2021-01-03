@@ -1,3 +1,17 @@
+
+# [2021TODO](https://app.yinxiang.com/shard/s31/nl/29625585/54171538-c099-443a-8ca0-60a701d423d3/)
+## 一月读书计划
+
+### 数据库 - 高性能MYSQL
+
+### Java进阶 - 深入理解Java虚拟机
+
+
+
+-----
+
+# 2020年
+
 待整理面经
 - https://mp.weixin.qq.com/s?__biz=Mzg2OTA0Njk0OA==&mid=2247485167&idx=1&sn=a35fad235a6bb2b6e31f1ff37e72bfd7&chksm=cea24924f9d5c032cbbeffc87cd366e9aa7b209897a26ad5c7f7b1b766b3c34a2c9b6870006c&mpshare=1&scene=1&srcid=#rd
 
